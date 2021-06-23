@@ -8,6 +8,7 @@ const Square = (props) => {
   //  Component to alert a parent 
   //  component when it's clicked on.
 
+  // shows a button and gives the button value as text when clicked
   return <button
     className="square"
   >
@@ -15,6 +16,7 @@ const Square = (props) => {
   </button>
 }
 
+// Use these prop types to identify what to pass in the component
 Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,

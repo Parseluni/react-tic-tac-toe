@@ -6,6 +6,8 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
+// generate a 2 dimensional array of objects, each object has an id and a value
+// blank to start with, changes on click (keeps track of the state of the game):
 const generateSquares = () => {
   const squares = [];
 
@@ -62,6 +64,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
+        {/* App component renders a board */}
         <Board squares={squares} />
       </main>
     </div>
