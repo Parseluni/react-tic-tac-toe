@@ -6,6 +6,7 @@ const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 
 const generateSquares = () => {
+
   const squares = [];
 
   let currentId = 0;
@@ -34,15 +35,15 @@ const App = () => {
       ...squares
     ];
 
-    // if square is empty, place X or 0
+    // if square is empty and no winner, place X or 0
     let currentSquareCoordinates = squaresCopy[Math.floor(id/3)][id % 3] 
-    if (currentSquareCoordinates.value === '') {
+    if (currentSquareCoordinates.value === '' && boardStatus() === null) {
       currentSquareCoordinates.value = currentPlayer;
       if (currentPlayer === PLAYER_1) {
         setCurrentPlayer(PLAYER_2);
       } else if (currentPlayer === PLAYER_2) {
         setCurrentPlayer(PLAYER_1);
-      }
+      } 
       setSquares(squaresCopy);
     } 
   }
@@ -51,24 +52,24 @@ const App = () => {
 
     // # check each row:
     for (let row of squares) {
-      if (row[0].value === row[1].value && row[0].value === row[2].value) {
+      if (row[0].value === row[1].value && row[0].value === row[2].value && row[0].value !== '') {
         return row[0].value
       }
     }
 
     // # check each column:
     for (let j=0; j<3; j++) {
-      if (squares[0][j].value === squares[1][j].value && squares[1][j].value === squares[2][j].value) {
+      if (squares[0][j].value === squares[1][j].value && squares[1][j].value === squares[2][j].value && squares[0][j].value !== '') {
         return squares[0][j].value
       }
     }
 
     // # check diagonals:
-    if (squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value) {
+    if (squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value && squares[0][0].value !== '') {
       return squares[1][1].value
     }
 
-    if (squares[2][0].value === squares[1][1].value && squares[1][1].value === squares[0][2].value) {
+    if (squares[2][0].value === squares[1][1].value && squares[1][1].value === squares[0][2].value && squares[1][1].value !== '') {
       return squares[1][1].value
     }
 
@@ -83,6 +84,7 @@ const App = () => {
   }
 
   const resetGame = () => {
+    // need to reset the initial player too
     setSquares(generateSquares())
   }
 
@@ -90,7 +92,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {boardStatus()} </h2>
+        <h2>Winner is {boardStatus()} </h2>
         <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
