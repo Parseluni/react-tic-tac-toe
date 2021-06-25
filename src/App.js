@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 
+
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 
@@ -29,6 +30,10 @@ const App = () => {
   const [squares, setSquares] = useState(generateSquares());
 
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+
+  const [playerOneName, setPlayerOneName] = useState('');
+
+  const [playerTwoName, setPlayerTwoName] = useState('');
 
   const updateSquare = (id) => {
     let squaresCopy = [
@@ -99,20 +104,46 @@ const App = () => {
     return 'Tie!'
   }
 
+  const nameWinner = () => {
+    let winner = boardStatus();
+    if (winner === 'Tie!') {
+      return 'Tie!';
+    } else if (winner === 'x') {
+      if (playerOneName !== '') {
+        return playerOneName;
+      } else {
+        return winner;
+      }
+    } else if (winner === 'o') {
+      if (playerTwoName !== '') {
+        return playerTwoName;
+      } else {
+        return winner;
+      }
+    }
+  }
+
   const resetGame = () => {
     setSquares(generateSquares())
     setCurrentPlayer(PLAYER_1)
+    setPlayerOneName('')
+    setPlayerTwoName('')
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>Winner is {boardStatus()} </h2>
-        <button onClick={() => resetGame()}>Reset Game</button>
+        <label className="Label">Player 1 -
+          <input type='text' value={playerOneName} onChange={(event) => setPlayerOneName(event.target.value)}/>
+        </label>
+        <label className="Label">Player 2 -
+          <input type='text'  value={playerTwoName} onChange={(event) => setPlayerTwoName(event.target.value)}/>
+        </label>
+        <h2>Winner is {nameWinner()} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        {/* App component renders a board */}
         <Board squares={squares} onClickCallback={updateSquare}/>
       </main>
     </div>

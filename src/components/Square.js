@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Square.css'
 
+
 const Square = (props) => {
 
   const handleButtonClick = () => {
     props.onClickCallback(props.id);
-
   }
-
   return <button className="square" onClick={handleButtonClick}>{props.value}</button>
 }
 
