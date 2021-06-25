@@ -48,29 +48,45 @@ const App = () => {
     } 
   }
   
+  const checkForWinner = ((square1, square2, square3) => {
+    if (square1 === square2 && square1 === square3 && square1 !== '') {
+      console.log(square1); 
+      return square1
+    } else {
+      return null;
+    }
+  })
+
   const boardStatus = () => {
 
     // # check each row:
     for (let row of squares) {
-      if (row[0].value === row[1].value && row[0].value === row[2].value && row[0].value !== '') {
-        return row[0].value
+      console.log(`The row is ${row}`, squares);
+      let result = checkForWinner(row[0].value, row[1].value, row[2].value);
+      if (result !== null) {
+        return result;
       }
     }
 
     // # check each column:
     for (let j=0; j<3; j++) {
-      if (squares[0][j].value === squares[1][j].value && squares[1][j].value === squares[2][j].value && squares[0][j].value !== '') {
-        return squares[0][j].value
+      console.log(`The column is ${j} and the board is ${squares}`);
+      let result = checkForWinner(squares[0][j].value, squares[1][j].value, squares[2][j].value);
+      if (result !== null) {
+        return result;
       }
     }
 
     // # check diagonals:
-    if (squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value && squares[0][0].value !== '') {
-      return squares[1][1].value
+    let result = checkForWinner(squares[0][0].value, squares[1][1].value, squares[2][2].value)
+    console.log(`Diagonal ${squares[0][0].value}`)
+    if (result !== null) {
+      return result;
     }
-
-    if (squares[2][0].value === squares[1][1].value && squares[1][1].value === squares[0][2].value && squares[1][1].value !== '') {
-      return squares[1][1].value
+      
+    result = checkForWinner(squares[2][0].value, squares[1][1].value, squares[0][2].value)
+    if (result !== null) {
+      return result;
     }
 
     for (let i=0; i<3; i++) {
@@ -84,8 +100,8 @@ const App = () => {
   }
 
   const resetGame = () => {
-    // need to reset the initial player too
     setSquares(generateSquares())
+    setCurrentPlayer(PLAYER_1)
   }
 
   return (
@@ -104,73 +120,4 @@ const App = () => {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-// const checkForWinner = ((square1, square2, square3) => {
-//   if (square1 === square2 && square1 === square3 && square1 !== '') {
-//     console.log(square1); 
-//     // lock the board
-//     return square1
-//   } 
-// })
-
-// const boardStatus = () => {
-
-//   // # check each row:
-//   for (let row of squares) {
-//     console.log(`The row is ${row}`, squares);
-//     let result = checkForWinner(row[0].value, row[1].value, row[2].value);
-//     if (result !== null) {
-//       return result
-//     }
-//   }
-
-//   for (let row of squares) {
-//     console.log(`The row is ${row}`, squares);
-//     let result = checkForWinner(row[0].value, row[1].value, row[2].value);
-//     if (result !== null) {
-//       return result
-//     }
-//   }
-
-//   // # check each column:
-//   for (let j=0; j<3; j++) {
-//     console.log(`The column is ${j} and the board is ${squares}`);
-//     let result = checkForWinner(squares[0][j].value, squares[1][j].value, squares[2][j].value);
-//     if (result !== null) {
-//       return result
-//     }
-//   }
-
-//   // # check diagonals:
-//   let result = checkForWinner(squares[0][0].value, squares[1][1].value, squares[2][2].value)
-//   console.log(`Diagonal ${squares[0][0].value}`)
-//   if (result !== null) {
-//     return result
-//   }
-    
-//   result = checkForWinner(squares[2][0].value, squares[1][1].value, squares[0][2].value)
-//   if (result !== null) {
-//     return result
-//   }
-
-//   // # check whether the board contains any empty strings
-//   for (let row in squares) {
-//     if ('' in row) {
-//       return null
-//     }
-//   }
-//   return 'Tie'
-// }
-
-
-
 
