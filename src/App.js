@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
-// import Square from './components/Square';
-
 
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 
-// generate a 2 dimensional array of objects, each object has an id and a value
-// blank to start with, changes on click (keeps track of the state of the game):
 const generateSquares = () => {
   const squares = [];
 
@@ -29,24 +25,14 @@ const generateSquares = () => {
 
 const App = () => {
 
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
-  // Wave 2
-  // You will need to create a method to change the square 
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
   const updateSquare = (id) => {
-    console.log('I am clicked', id);
     let squaresCopy = [
       ...squares
     ];
-    console.log(squares);
-    console.log('squaresCopy', squaresCopy);
 
     // if square is empty, place X or 0
     let currentSquareCoordinates = squaresCopy[Math.floor(id/3)][id % 3] 
@@ -65,7 +51,6 @@ const App = () => {
 
     // # check each row:
     for (let row of squares) {
-      console.log(`The row is ${row}`, squares);
       if (row[0].value === row[1].value && row[0].value === row[2].value) {
         return row[0].value
       }
@@ -73,7 +58,6 @@ const App = () => {
 
     // # check each column:
     for (let j=0; j<3; j++) {
-      console.log(`The column is ${j} and the board is ${squares}`);
       if (squares[0][j].value === squares[1][j].value && squares[1][j].value === squares[2][j].value) {
         return squares[0][j].value
       }
@@ -81,12 +65,10 @@ const App = () => {
 
     // # check diagonals:
     if (squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value) {
-      console.log(`Diagonal ${squares[0][0].value}`)
       return squares[1][1].value
     }
 
     if (squares[2][0].value === squares[1][1].value && squares[1][1].value === squares[0][2].value) {
-      console.log(`Diagonal ${squares[0][0].value}`)
       return squares[1][1].value
     }
 
@@ -101,7 +83,7 @@ const App = () => {
   }
 
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares())
   }
 
   return (
@@ -109,7 +91,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... {boardStatus()} </h2>
-        <button>Reset Game</button>
+        <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
         {/* App component renders a board */}

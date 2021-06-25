@@ -4,18 +4,14 @@ import Square from './Square';
 import PropTypes from 'prop-types';
 
 
-// The board component takes a 2d array of squares and returns it into one 
-// dimensional array of JSX
+// The board component takes a 2d array of squares and returns it into one dimensional array of JSX
 const generateSquareComponents = (squares, onClickCallback) => {
-
-  console.log(squares, onClickCallback)
 
   let squareList = []
 
   for (let i = 0; i < squares.length; i++) {
     squareList = squareList.concat(squares[i]);
   }
-  console.log(squareList)
 
   return squareList.map((square) => {
     return (
@@ -26,7 +22,6 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = (props) => {
   const squareList = generateSquareComponents(props.squares, props.onClickCallback);
-  console.log(squareList);
   return <div className="grid" >
     {/* show 1d array here */}
     {squareList}
