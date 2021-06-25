@@ -60,70 +60,45 @@ const App = () => {
       setSquares(squaresCopy);
     } 
   }
-
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if 
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if 
-    //    all three squares have the same value.
-
-  const checkForWinner = ((square1, square2, square3) => {
-    if (square1 === square2 && square1 === square3 && square1 !== '') {
-      console.log(square1); 
-      // lock the board
-      return square1
-    } 
-  })
   
-  const boardStatus = (board => {
-    console.log(`MAIN board`, board)
-
-    // # 1. There is a winning combination on the board
+  const boardStatus = () => {
 
     // # check each row:
-    for (let row of board) {
-      console.log(`The row is ${row}`, board);
-      let result = checkForWinner(row[0].value, row[1].value, row[2].value);
-      if (result !== null) {
-        return result
+    for (let row of squares) {
+      console.log(`The row is ${row}`, squares);
+      if (row[0].value === row[1].value && row[0].value === row[2].value) {
+        return row[0].value
       }
     }
 
     // # check each column:
     for (let j=0; j<3; j++) {
-      console.log(`The column is ${j} and the board is ${board}`);
-      let result = checkForWinner(board[0][j].value, board[1][j].value, board[2][j].value);
-      if (result !== null) {
-        return result
+      console.log(`The column is ${j} and the board is ${squares}`);
+      if (squares[0][j].value === squares[1][j].value && squares[1][j].value === squares[2][j].value) {
+        return squares[0][j].value
       }
     }
 
     // # check diagonals:
-    let result = checkForWinner(board[0][0].value, board[1][1].value, board[2][2].value)
-    console.log(`Diagonal ${board[0][0].value}`)
-    if (result !== null) {
-      return result
-    }
-      
-    result = checkForWinner(board[2][0].value, board[1][1].value, board[0][2].value)
-    if (result !== null) {
-      return result
+    if (squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value) {
+      console.log(`Diagonal ${squares[0][0].value}`)
+      return squares[1][1].value
     }
 
-    // # 2. There is no winning combination on the board
+    if (squares[2][0].value === squares[1][1].value && squares[1][1].value === squares[0][2].value) {
+      console.log(`Diagonal ${squares[0][0].value}`)
+      return squares[1][1].value
+    }
 
-    // # check whether the board contains any empty strings
-    for (let row in board) {
-      if ('' in row) {
-        return null
+    for (let i=0; i<3; i++) {
+      for (let j=0; j<3; j++) {
+        if (squares[i][j].value === '') {
+          return null
+        }
       }
     }
-    return 'Tie'
-  })
+    return 'Tie!'
+  }
 
   const resetGame = () => {
     // Complete in Wave 4
@@ -133,7 +108,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {boardStatus(squares)} </h2>
+        <h2>The winner is ... {boardStatus()} </h2>
         <button>Reset Game</button>
       </header>
       <main>
@@ -145,6 +120,72 @@ const App = () => {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+// const checkForWinner = ((square1, square2, square3) => {
+//   if (square1 === square2 && square1 === square3 && square1 !== '') {
+//     console.log(square1); 
+//     // lock the board
+//     return square1
+//   } 
+// })
+
+// const boardStatus = () => {
+
+//   // # check each row:
+//   for (let row of squares) {
+//     console.log(`The row is ${row}`, squares);
+//     let result = checkForWinner(row[0].value, row[1].value, row[2].value);
+//     if (result !== null) {
+//       return result
+//     }
+//   }
+
+//   for (let row of squares) {
+//     console.log(`The row is ${row}`, squares);
+//     let result = checkForWinner(row[0].value, row[1].value, row[2].value);
+//     if (result !== null) {
+//       return result
+//     }
+//   }
+
+//   // # check each column:
+//   for (let j=0; j<3; j++) {
+//     console.log(`The column is ${j} and the board is ${squares}`);
+//     let result = checkForWinner(squares[0][j].value, squares[1][j].value, squares[2][j].value);
+//     if (result !== null) {
+//       return result
+//     }
+//   }
+
+//   // # check diagonals:
+//   let result = checkForWinner(squares[0][0].value, squares[1][1].value, squares[2][2].value)
+//   console.log(`Diagonal ${squares[0][0].value}`)
+//   if (result !== null) {
+//     return result
+//   }
+    
+//   result = checkForWinner(squares[2][0].value, squares[1][1].value, squares[0][2].value)
+//   if (result !== null) {
+//     return result
+//   }
+
+//   // # check whether the board contains any empty strings
+//   for (let row in squares) {
+//     if ('' in row) {
+//       return null
+//     }
+//   }
+//   return 'Tie'
+// }
 
 
 
